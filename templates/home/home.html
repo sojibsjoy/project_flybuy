@@ -1,7 +1,7 @@
 {% load static %}
 {% static 'assets/img/carousel' as slideImgPath %}
 {% static 'assets/img/products' as productsImgPath %}
-{% static 'assets/img/blog' as articleImgPath %}
+{% static 'assets/img/blog' as blogImgPath %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -248,7 +248,12 @@
         {% for product in products %}
 
         <div class="col-sm-6 col-md-4 product">
+          {% if product.isFavorite %}
+          <a href="#favorites" class="favorites" data-favorite="active"><i class="ion-ios-heart-outline"></i></a>
+          {% else %}
           <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
+          {% endif %}
+
           <a href="./"><img src="{{productsImgPath}}/{{product.img}}" alt="{{product.imgAltText}}"/></a>
 
           <div class="content">
@@ -278,8 +283,13 @@
         {% for recommend in recommends %}
 
         <div class="col-sm-6 col-md-3 product">
+          {% if recommend.isFavorite %}
+          <a href="#favorites" class="favorites" data-favorite="active"><i class="ion-ios-heart-outline"></i></a>
+          {% else %}
           <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
-          <a href="./"><img src="{{productsImgPath}}/{{recommend.img}}" alt="{{recommend.imgAltText}}"/></a>
+          {% endif %}
+
+          <a href="/"><img src="{{productsImgPath}}/{{recommend.img}}" alt="{{recommend.imgAltText}}"/></a>
 
           <div class="content">
             <h1 class="h4">{{recommend.headline}}</h1>
@@ -306,33 +316,87 @@
 
       <div class="row blog">
 
-        {% for article in articles %}
+        {% for newArticle in newArticles %}
 
-        <div class="col-sm-6 col-md-6 item">
+          {% if newArticle.isPhotoArticle %}
 
-          <div class="body">
-            <a href="/blog/item-photo" class="view"><i class="ion-ios-book-outline"></i></a>
+          <div class="col-sm-6 col-md-6 item">
+            <div class="body">
+              <a href="/blog/item-photo" class="view"><i class="ion-ios-book-outline"></i></a>
+              <a href="/blog/item-photo">
+                <img src="{{blogImgPath}}/{{newArticle.img}}" title="{{newArticle.imgTitle}}" alt="{{newArticle.imgAltText}}">
+              </a>
 
-            <a href="/blog/item-photo">
-              <img src="{{articleImgPath}}/{{article.img}}" title="{{article.imgTitle}}" alt="{{article.imgAltText}}">
-            </a>
+              <div class="caption">
+                <h1 class="h3">{{newArticle.headline}}</h1>
+                <label> {{newArticle.date}}</label>
+                <hr class="offset-sm">
 
-            <div class="caption">
-              <h1 class="h3">{{article.headline}}</h1>
-              <label> {{article.date}}</label>
-              <hr class="offset-sm">
+                <p>
+                  {{newArticle.desc}}
+                </p>
+                <hr class="offset-sm">
 
-              <p>
-                {{article.desc}}
-              </p>
-              <hr class="offset-sm">
-
-              <a href="/blog/item-photo"> View article <i class="ion-ios-arrow-right"></i> </a>
+                <a href="/blog/item-photo"> View article <i class="ion-ios-arrow-right"></i> </a>
+              </div>
             </div>
           </div>
-        </div>
 
-        {% endfor %}
+          {% endif %}
+
+          {% if newArticle.isVideoArticle %}
+
+          <div class="col-sm-6 col-md-6 item">
+            <div class="body">
+              <a href="/blog/item-video" class="view"><i class="ion-ios-book-outline"></i></a>
+              <a href="/blog/item-video">
+                <img src="{{blogImgPath}}/{{newArticle.img}}" title="{{newArticle.imgTitle}}" alt="{{newArticle.imgAltText}}">
+              </a>
+
+              <div class="caption">
+                <h1 class="h3">{{newArticle.headline}}</h1>
+                <label> {{newArticle.date}}</label>
+                <hr class="offset-sm">
+
+                <p>
+                  {{newArticle.desc}}
+                </p>
+                <hr class="offset-sm">
+
+                <a href="/blog/item-video"> View article <i class="ion-ios-arrow-right"></i> </a>
+              </div>
+            </div>
+          </div>
+
+          {% endif %}
+
+          {% if newArticle.isReviewArticle %}
+
+          <div class="col-sm-6 col-md-6 item">
+            <div class="body">
+              <a href="/blog/item-review" class="view"><i class="ion-ios-book-outline"></i></a>
+              <a href="/blog/item-review">
+                <img src="{{blogImgPath}}/{{newArticle.img}}" title="{{newArticle.imgTitle}}" alt="{{newArticle.imgAltText}}">
+              </a>
+
+              <div class="caption">
+                <h1 class="h3">{{newArticle.headline}}</h1>
+                <label> {{newArticle.date}}</label>
+                <hr class="offset-sm">
+
+                <p>
+                  {{newArticle.desc}}
+                </p>
+                <hr class="offset-sm">
+
+                <a href="/blog/item-review"> View article <i class="ion-ios-arrow-right"></i> </a>
+              </div>
+            </div>
+          </div>
+
+          {% endif %}
+
+          {% endfor %}
 
       </div>
     </div>

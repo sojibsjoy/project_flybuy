@@ -14,6 +14,7 @@ class SlideItem:
 
 
 class NewProducts:
+    isFavorite: bool
     headline: str
     isOffer: bool
     sale: float
@@ -24,6 +25,7 @@ class NewProducts:
 
 
 class Recommendation:
+    isFavorite: bool
     headline: str
     isOffer: bool
     sale: float
@@ -33,7 +35,10 @@ class Recommendation:
     imgAltText: str
 
 
-class NewArticles:
+class NewArticle:
+    isPhotoArticle: bool
+    isVideoArticle: bool
+    isReviewArticle: bool
     img: str
     imgTitle: str
     imgAltText: str

@@ -1,3 +1,13 @@
 from django.db import models
 
-# Create your models here.
+
+class Article:
+    isPhotoArticle: bool
+    isVideoArticle: bool
+    isReviewArticle: bool
+    img: str
+    imgTitle: str
+    imgAltText: str
+    headline: str
+    date: str
+    desc: str

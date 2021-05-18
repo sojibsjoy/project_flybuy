@@ -1,4 +1,5 @@
 {% load static %}
+{% static 'assets/img/products' as productsImgPath %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -31,7 +32,7 @@
   <body>
     <div class="cart" data-toggle="inactive">
       <div class="label">
-        <i class="ion-bag"></i> 7
+        <i class="ion-bag"></i> {{ cartItems | length }}
       </div>
 
       <div class="overlay"></div>
@@ -44,23 +45,25 @@
 
         <div class="content">
 
+          {% for cartItem in cartItems %}
+          
           <div class="media">
             <div class="media-left">
               <a href="#">
-                <img class="media-object" src="{% static 'assets/img/products/chrome-book-11.jpg' %}" alt="HP Chromebook 11"/>
+                <img class="media-object" src="{{productsImgPath}}/{{cartItem.img}}" alt="{{cartItem.imgAltText}}"/>
               </a>
             </div>
             <div class="media-body">
-              <h2 class="h4 media-heading">HP Chromebook 11</h2>
-              <label>Laptops</label>
-              <p class="price">$199.99</p>
+              <h2 class="h4 media-heading">{{cartItem.title}}</h2>
+              <label>{{cartItem.label}}</label>
+              <p class="price">${{cartItem.price}}</p>
             </div>
             <div class="controls">
               <div class="input-group">
                 <span class="input-group-btn">
                   <button class="btn btn-default btn-sm" type="button" data-action="minus"><i class="ion-minus-round"></i></button>
                 </span>
-                <input type="text" class="form-control input-sm" placeholder="Qty" value="1" readonly="">
+                <input type="text" class="form-control input-sm" placeholder="Qty" value="{{cartItem.quantity}}" readonly="">
                 <span class="input-group-btn">
                   <button class="btn btn-default btn-sm" type="button" data-action="plus"><i class="ion-plus-round"></i></button>
                 </span>
@@ -70,161 +73,7 @@
             </div>
           </div>
 
-          <div class="media">
-            <div class="media-left">
-              <a href="#">
-                <img class="media-object" src="{% static 'assets/img/products/chrome-book-14.jpg' %}" alt="HP Chromebook 11"/>
-              </a>
-            </div>
-            <div class="media-body">
-              <h2 class="h4 media-heading">HP Chromebook 14</h2>
-              <label>Laptops</label>
-              <p class="price">$209.99</p>
-            </div>
-            <div class="controls">
-              <div class="input-group">
-                <span class="input-group-btn">
-                  <button class="btn btn-default btn-sm" type="button" data-action="minus"><i class="ion-minus-round"></i></button>
-                </span>
-                <input type="text" class="form-control input-sm" placeholder="Qty" value="1" readonly="">
-                <span class="input-group-btn">
-                  <button class="btn btn-default btn-sm" type="button" data-action="plus"><i class="ion-plus-round"></i></button>
-                </span>
-              </div><!-- /input-group -->
-
-              <a href="#remove"> <i class="ion-trash-b"></i> Remove </a>
-            </div>
-          </div>
-
-          <div class="media">
-            <div class="media-left">
-              <a href="#">
-                <img class="media-object" src="{% static 'assets/img/products/ipad-air.jpg' %}" alt="iPad Air"/>
-              </a>
-            </div>
-            <div class="media-body">
-              <h2 class="h4 media-heading">iPad Air</h2>
-              <label>Tablets</label>
-              <p class="price">$449.99</p>
-            </div>
-            <div class="controls">
-              <div class="input-group">
-                <span class="input-group-btn">
-                  <button class="btn btn-default btn-sm" type="button" data-action="minus"><i class="ion-minus-round"></i></button>
-                </span>
-                <input type="text" class="form-control input-sm" placeholder="Qty" value="1" readonly="">
-                <span class="input-group-btn">
-                  <button class="btn btn-default btn-sm" type="button" data-action="plus"><i class="ion-plus-round"></i></button>
-                </span>
-              </div><!-- /input-group -->
-
-              <a href="#remove"> <i class="ion-trash-b"></i> Remove </a>
-            </div>
-          </div>
-
-          <div class="media">
-            <div class="media-left">
-              <a href="#">
-                <img class="media-object" src="{% static 'assets/img/products/mi-pad-2.jpg' %}" alt="HP Chromebook 11"/>
-              </a>
-            </div>
-            <div class="media-body">
-              <h2 class="h4 media-heading">Mi Pad 2</h2>
-              <label>Tablets</label>
-              <p class="price">$199.99</p>
-            </div>
-            <div class="controls">
-              <div class="input-group">
-                <span class="input-group-btn">
-                  <button class="btn btn-default btn-sm" type="button" data-action="minus"><i class="ion-minus-round"></i></button>
-                </span>
-                <input type="text" class="form-control input-sm" placeholder="Qty" value="1" readonly="">
-                <span class="input-group-btn">
-                  <button class="btn btn-default btn-sm" type="button" data-action="plus"><i class="ion-plus-round"></i></button>
-                </span>
-              </div><!-- /input-group -->
-
-              <a href="#remove"> <i class="ion-trash-b"></i> Remove </a>
-            </div>
-          </div>
-
-          <div class="media">
-            <div class="media-left">
-              <a href="#">
-                <img class="media-object" src="{% static 'assets/img/products/lenovo-yoga.jpg' %}" alt="Lenovo Yoga"/>
-              </a>
-            </div>
-            <div class="media-body">
-              <h2 class="h4 media-heading">Lenovo Yoga</h2>
-              <label>Hybrid</label>
-              <p class="price">$199.99</p>
-            </div>
-            <div class="controls">
-              <div class="input-group">
-                <span class="input-group-btn">
-                  <button class="btn btn-default btn-sm" type="button" data-action="minus"><i class="ion-minus-round"></i></button>
-                </span>
-                <input type="text" class="form-control input-sm" placeholder="Qty" value="1" readonly="">
-                <span class="input-group-btn">
-                  <button class="btn btn-default btn-sm" type="button" data-action="plus"><i class="ion-plus-round"></i></button>
-                </span>
-              </div><!-- /input-group -->
-
-              <a href="#remove"> <i class="ion-trash-b"></i> Remove </a>
-            </div>
-          </div>
-
-          <div class="media">
-            <div class="media-left">
-              <a href="#">
-                <img class="media-object" src="{% static 'assets/img/products/surface-pro.jpg' %}" alt="HP Chromebook 11"/>
-              </a>
-            </div>
-            <div class="media-body">
-              <h2 class="h4 media-heading">Surface Pro</h2>
-              <label>Hybrid</label>
-              <p class="price">$199.99</p>
-            </div>
-            <div class="controls">
-              <div class="input-group">
-                <span class="input-group-btn">
-                  <button class="btn btn-default btn-sm" type="button" data-action="minus"><i class="ion-minus-round"></i></button>
-                </span>
-                <input type="text" class="form-control input-sm" placeholder="Qty" value="1" readonly="">
-                <span class="input-group-btn">
-                  <button class="btn btn-default btn-sm" type="button" data-action="plus"><i class="ion-plus-round"></i></button>
-                </span>
-              </div><!-- /input-group -->
-
-              <a href="#remove"> <i class="ion-trash-b"></i> Remove </a>
-            </div>
-          </div>
-
-          <div class="media">
-            <div class="media-left">
-              <a href="#">
-                <img class="media-object" src="{% static 'assets/img/products/asus-transformer.jpg' %}" alt="HP Chromebook 11"/>
-              </a>
-            </div>
-            <div class="media-body">
-              <h2 class="h4 media-heading">ASUS Transformer</h2>
-              <label>Hybrid</label>
-              <p class="price">$199.99</p>
-            </div>
-            <div class="controls">
-              <div class="input-group">
-                <span class="input-group-btn">
-                  <button class="btn btn-default btn-sm" type="button" data-action="minus"><i class="ion-minus-round"></i></button>
-                </span>
-                <input type="text" class="form-control input-sm" placeholder="Qty" value="1" readonly="">
-                <span class="input-group-btn">
-                  <button class="btn btn-default btn-sm" type="button" data-action="plus"><i class="ion-plus-round"></i></button>
-                </span>
-              </div><!-- /input-group -->
-
-              <a href="#remove"> <i class="ion-trash-b"></i> Remove </a>
-            </div>
-          </div>
+          {% endfor %}
 
         </div>
 
@@ -493,136 +342,31 @@
         <div class="col-sm-9 products">
           <div class="row">
 
+            {% for productItem in productItems %}
 
             <div class="col-sm-6 col-md-4 product">
+              {% if productItem.isFavorite %}
+              <a href="#favorites" class="favorites" data-favorite="active"><i class="ion-ios-heart-outline"></i></a>
+              {% else %}
               <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
-              <a href="./"><img src="{% static 'assets/img/products/chrome-book-11.jpg' %}" alt="HP Chromebook 11"/></a>
+              {% endif %}
+
+              <a href="/catalog/product"><img src="{{productsImgPath}}/{{productItem.img}}" alt="{{productItem.imgAltText}}"/></a>
 
               <div class="content">
-                <h1 class="h4">HP Chromebook 11</h1>
-                <p class="price">$199.99</p>
-                <label>Laptops</label>
+                <h1 class="h4">{{productItem.title}}</h1>
+                <p class="sale">${{productItem.sale}}</p>
+                {% if productItem.isOffer %}
+                <p class="price through">${{productItem.priceThrough}}</p>
+                {% endif %}
+                <label>{{productItem.label}}</label>
 
                 <a href="/catalog/product" class="btn btn-link"> Details</a>
                 <button class="btn btn-primary btn-rounded btn-sm"> <i class="ion-bag"></i> Add to cart</button>
               </div>
             </div>
 
-            <div class="col-sm-6 col-md-4 product">
-              <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
-              <a href="./"><img src="{% static 'assets/img/products/chrome-book-14.jpg' %}" alt="HP Chromebook 14"/></a>
-
-              <div class="content">
-                <h1 class="h4">HP Chromebook 14</h1>
-                <p class="sale">$209.99</p>
-                <p class="price through">$249.99</p>
-                <label>Laptops</label>
-
-                <a href="/catalog/product" class="btn btn-link"> Details</a>
-                <button class="btn btn-primary btn-rounded btn-sm"> <i class="ion-bag"></i> Add to cart</button>
-              </div>
-            </div>
-
-            <div class="col-sm-6 col-md-4 product">
-              <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
-              <a href="./"><img src="{% static 'assets/img/products/chrome-book-asus.jpg' %}" alt="HP Chromebook 14"/></a>
-
-              <div class="content">
-                <h1 class="h4">Asus Chromebook</h1>
-                <p class="price">$299.99</p>
-                <label>Laptops</label>
-
-                <a href="/catalog/product" class="btn btn-link"> Details</a>
-                <button class="btn btn-primary btn-rounded btn-sm"> <i class="ion-bag"></i> Add to cart</button>
-              </div>
-            </div>
-
-
-            <div class="col-sm-6 col-md-4 product">
-              <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
-              <a href="./"><img src="{% static 'assets/img/products/ipad-air.jpg' %}" alt="iPad Air"/></a>
-
-              <div class="content">
-                <h1 class="h4">iPad Air</h1>
-                <p class="price">$449.99</p>
-                <label>Tablets</label>
-
-                <a href="/catalog/product" class="btn btn-link"> Details</a>
-                <button class="btn btn-primary btn-rounded btn-sm"> <i class="ion-bag"></i> Add to cart</button>
-              </div>
-            </div>
-
-            <div class="col-sm-6 col-md-4 product">
-              <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
-              <a href="./"><img src="{% static 'assets/img/products/ipad-mini.jpg' %}" alt="iPad Mini"/></a>
-
-              <div class="content">
-                <h1 class="h4">iPad Mini</h1>
-                <p class="price">$399.99</p>
-                <label>Tablets</label>
-
-                <a href="/catalog/product" class="btn btn-link"> Details</a>
-                <button class="btn btn-primary btn-rounded btn-sm"> <i class="ion-bag"></i> Add to cart</button>
-              </div>
-            </div>
-
-            <div class="col-sm-6 col-md-4 product">
-              <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
-              <a href="./"><img src="{% static 'assets/img/products/mi-pad-2.jpg' %}" alt="Mi Pad 2/"></a>
-
-              <div class="content">
-                <h1 class="h4">Mi Pad 2</h1>
-                <p class="sale">$199.99</p>
-                <p class="price through">$249.99</p>
-                <label>Tablets</label>
-
-                <a href="/catalog/product" class="btn btn-link"> Details</a>
-                <button class="btn btn-primary btn-rounded btn-sm"> <i class="ion-bag"></i> Add to cart</button>
-              </div>
-            </div>
-
-
-            <div class="col-sm-6 col-md-4 product">
-              <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
-              <a href="./"><img src="{% static 'assets/img/products/surface-pro.jpg' %}" alt="Surface Pro"/></a>
-
-              <div class="content">
-                <h1 class="h4">Surface Pro</h1>
-                <p class="price">$199.99</p>
-                <label>Hybrid</label>
-
-                <a href="/catalog/product" class="btn btn-link"> Details</a>
-                <button class="btn btn-primary btn-rounded btn-sm"> <i class="ion-bag"></i> Add to cart</button>
-              </div>
-            </div>
-
-            <div class="col-sm-6 col-md-4 product">
-              <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
-              <a href="./"><img src="{% static 'assets/img/products/lenovo-yoga.jpg' %}" alt="Lenovo Yoga"/></a>
-
-              <div class="content">
-                <h1 class="h4">Lenovo Yoga</h1>
-                <p class="price">$199.99</p>
-                <label>Hybrid</label>
-
-                <a href="/catalog/product" class="btn btn-link"> Details</a>
-                <button class="btn btn-primary btn-rounded btn-sm"> <i class="ion-bag"></i> Add to cart</button>
-              </div>
-            </div>
-
-            <div class="col-sm-6 col-md-4 product">
-              <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
-              <a href="./"><img src="{% static 'assets/img/products/asus-transformer.jpg' %}" alt="ASUS Transformer"/></a>
-
-              <div class="content">
-                <h1 class="h4">ASUS Transformer</h1>
-                <p class="price">$199.99</p>
-                <label>Hybrid</label>
-
-                <a href="/catalog/product" class="btn btn-link"> Details</a>
-                <button class="btn btn-primary btn-rounded btn-sm"> <i class="ion-bag"></i> Add to cart</button>
-              </div>
-            </div>
+            {% endfor %}
 
           </div>
 
