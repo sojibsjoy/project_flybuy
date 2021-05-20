@@ -1,5 +1,7 @@
-from catalog.models import CartItem, Comment, PreviewItem, ProductDetail, ProductItem
+from catalog.models import Comment, PreviewItem, ProductDetail, ProductItem
+from cart.models import CartItem
 from home.models import Recommendation
+from contacts.models import ContactInfo
 from django.shortcuts import render
 
 
@@ -60,7 +62,15 @@ def catalog(request):
 
     productItems = [productItem1, productItem2]
 
-    return render(request, 'catalog/catalog.html', {'cartItems': cartItems, 'productItems': productItems})
+    contactInfo = ContactInfo()
+    contactInfo.companyName = "FlyBuy, Inc."
+    contactInfo.addressText1 = "1305 Market Street, Suite 800"
+    contactInfo.addressText2 = "San Francisco, CA 94102"
+    contactInfo.phoneNo = " (123) 456-7890"
+    contactInfo.supportMail = "sup@example.com"
+    contactInfo.partnerMail = "col@example.com"
+
+    return render(request, 'catalog/catalog.html', {'cartItems': cartItems, 'productItems': productItems, 'contactInfo': contactInfo})
 
 
 def product(request):
@@ -215,4 +225,12 @@ def product(request):
 
     comments = [comment1, comment2, comment3]
 
-    return render(request, 'catalog/product.html', {'productDetail': productDetail, 'cartItems': cartItems, 'previewItems': previewItems, 'recommends': recommends, 'comments': comments})
+    contactInfo = ContactInfo()
+    contactInfo.companyName = "FlyBuy, Inc."
+    contactInfo.addressText1 = "1305 Market Street, Suite 800"
+    contactInfo.addressText2 = "San Francisco, CA 94102"
+    contactInfo.phoneNo = " (123) 456-7890"
+    contactInfo.supportMail = "sup@example.com"
+    contactInfo.partnerMail = "col@example.com"
+
+    return render(request, 'catalog/product.html', {'productDetail': productDetail, 'cartItems': cartItems, 'previewItems': previewItems, 'recommends': recommends, 'comments': comments, 'contactInfo': contactInfo})

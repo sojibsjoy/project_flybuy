@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from gallery.models import GalleryItem
+from contacts.models import ContactInfo
 
 
 def gallery(request):
@@ -18,4 +19,12 @@ def gallery(request):
 
     items = [item1, item2]
 
-    return render(request, 'gallery/gallery.html', {'items': items})
+    contactInfo = ContactInfo()
+    contactInfo.companyName = "FlyBuy, Inc."
+    contactInfo.addressText1 = "1305 Market Street, Suite 800"
+    contactInfo.addressText2 = "San Francisco, CA 94102"
+    contactInfo.phoneNo = " (123) 456-7890"
+    contactInfo.supportMail = "sup@example.com"
+    contactInfo.partnerMail = "col@example.com"
+
+    return render(request, 'gallery/gallery.html', {'items': items, 'contactInfo': contactInfo})

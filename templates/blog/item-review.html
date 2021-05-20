@@ -1,4 +1,6 @@
 {% load static %}
+{% static 'assets/img/products' as productsImgPath %}
+{% static 'assets/img/blog' as blogImgPath %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -86,75 +88,86 @@
     	<div class="container marketing">
         <div class="row">
           <div class="col-sm-12 align-center">
-            <h1>HP Chromebook laptops</h1>
-            <p>With the HP Chromebook running lightning-fast Chrome OS, <br> the best of Google is at hand on a colorfully sleek and stylish notebook.</p>
-            <a href="#video" data-gallery="#video" data-source="youtube" data-id="AqUjIs0pw_U" data-title="HP Chromebook review" data-description="Detailed unboxing and review of the new Google designed 11-inch HP Chromebook. 239$">
+            <h1>{{reviewBlogItem.title}}</h1>
+            <p>{{ reviewBlogItem.titleDesc | linebreaks }}</p>
+            {% if reviewBlogItem.isVideoAvailable %}
+            <a href="#video" data-gallery="#video" data-source="youtube" data-id="{{reviewBlogItem.videoId}}" data-title="{{reviewBlogItem.videoTitle}}" data-description="{{reviewBlogItem.videoDesc}}">
               Video unboxing & review <i class="ion-ios-play"></i>
             </a>
+            {% endif %}
             <br><br>
           </div>
           <div class="col-sm-6 col-sm-offset-3 align-center">
-            <img src="{% static 'assets/img/blog/item-review.jpg' %}" alt="HP Chromebook" class="image" />
-            <h2>Starting at $199.99</h2>
+            <img src="{{blogImgPath}}/{{reviewBlogItem.thumbImg}}" alt="{{reviewBlogItem.thumbImgAltText}}" class="image" />
+            <h2>Starting at ${{reviewBlogItem.startingPrice}}</h2>
 
             <a href="#first-featurette" class="scroll-to"> <i class="ion-android-arrow-down"></i> <br> Scroll for more </a>
           </div>
         </div>
         <br><br>
 
+        {% if reviewBlogItem.ffFlag %}
+
         <div class="row featurette" id="first-featurette">
           <div class="col-md-7">
-            <h2 class="featurette-heading">Anywhere, anytime mobility. <span class="text-muted"> Fast, simple, secure. </span></h2>
+            <h2 class="featurette-heading">{{reviewBlogItem.ffTitle1}}<span class="text-muted">{{reviewBlogItem.ffTitle2}}</span></h2>
             <p class="lead">
-              School, home, or on the road, the slim design, and latest Intel® processor give you everything you need to take on the world.
-              Conveniently store up to 100GB of your files and content with the included 2-years of Google Drive access.
-              With up to 9.5 hours of long lasting battery, search, stream, chat, and more for hours without recharging.
+              {{reviewBlogItem.ffDesc}}
             </p>
           </div>
           <div class="col-md-5">
-            <img class="featurette-image img-responsive center-block" alt="500x500" src="{% static 'assets/img/blog/review-2.jpg' %}">
+            <img class="featurette-image img-responsive center-block" alt="{{reviewBlogItem.ffImgAltText}}" src="{{blogImgPath}}/{{reviewBlogItem.ffImg}}">
           </div>
         </div>
 
+        {% endif %}
+
         <hr>
+
+        {% if reviewBlogItem.sfFlag %}
 
         <div class="row featurette" id="second-featurette">
           <div class="col-md-7 col-md-push-5">
-            <h2 class="featurette-heading">Entertainment at your fingertips. <span class="text-muted"> HP TrueVision.</span></h2>
+            <h2 class="featurette-heading">{{reviewBlogItem.sfTitle1}}<span class="text-muted">{{reviewBlogItem.sfTitle2}}</span></h2>
             <p class="lead">
-              Capture all the details with vibrant clarity, even in low light. Enjoy the nuances of face-to-face conversations, thanks to the HP TrueVision HD Webcam.
-              Lay back and get comfortable with your favorite movies and shows. The 11.6-inch diagonal HD IPS screen (optional) delivers your entertainment in stunning quality, from any angle
+            {{reviewBlogItem.sfDesc}}  
             </p>
           </div>
           <div class="col-md-5 col-md-pull-7">
-            <img class="featurette-image img-responsive center-block" alt="500x500" src="{% static 'assets/img/blog/review-1.jpg' %}">
+            <img class="featurette-image img-responsive center-block" alt="{{reviewBlogItem.sfImgAltText}}" src="{{blogImgPath}}/{{reviewBlogItem.sfImg}}">
           </div>
         </div>
+
+        {% endif %}
 
         <hr>
 
+        {% if reviewBlogItem.thFlag %}
+
         <div class="row featurette" id="third-featurette">
           <div class="col-md-7">
-            <h2 class="featurette-heading">Sleek and colorful. <span class="text-muted">Checkmate.</span></h2>
+            <h2 class="featurette-heading">{{reviewBlogItem.tfTitle1}}<span class="text-muted">{{reviewBlogItem.tfTitle2}}</span></h2>
             <p class="lead">
-              With the HP Chromebook running lightning-fast Chrome OS, the best of Google is at hand on a colorfully sleek and stylish notebook.
-              Express yourself with an HD 29.5 cm (11.6") diagonal screen in a slim package, styled in smoke silver or sky blue.
+              {{ reviewBlogItem.tfDesc | linebreaks }}
             </p>
           </div>
           <div class="col-md-5">
-            <img class="featurette-image img-responsive center-block" alt="500x500" src="{% static 'assets/img/blog/review-3.jpg' %}">
+            <img class="featurette-image img-responsive center-block" alt="{{reviewBlogItem.tfImgAltText}}" src="{{blogImgPath}}/{{reviewBlogItem.tfImg}}">
           </div>
         </div>
+
+        {% endif %}
+
       </div>
 
       <br><br>
 
       <div class="review-background">
         <div class="container">
-          <h1> The stylish HP Chromebook provides <br> a speedy connection to your protected online content and <br> automatically updated apps</h1>
+          <h1> {{ reviewBlogItem.bottomHeadline | linebreaks }}</h1>
           <br><br>
 
-          <p>All within an ultra-thin full-sized notebook, providing a comfortable gateway to surf, socialize and play.</p>
+          <p>{{reviewBlogItem.bottomText}}</p>
         </div>
       </div>
     </div>
@@ -163,34 +176,31 @@
     <div class="products" id="products">
       <div class="container">
         <div class="row">
-          <div class="col-sm-6 col-md-3 col-md-offset-3 product">
+
+          {% for rProduct in rProducts %}
+              <div class="col-sm-6 col-md-3 col-md-offset-3 product">
+                {% if rProduct.isFavorite %}
+                <a href="#favorites" class="favorites" data-favorite="active"><i class="ion-ios-heart-outline"></i></a>
+                {% else %}
                 <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
-                <a href="./"><img src="{% static 'assets/img/products/chrome-book-11.jpg' %}" alt="HP Chromebook 11"/></a>
+                {% endif %}
+                <a href="/catalog/product"><img src="{{productsImgPath}}/{{rProduct.img}}" alt="{{rProduct.imgAltText}}"/></a>
 
                 <div class="content">
-                  <h1 class="h4">HP Chromebook 11</h1>
-                  <p class="price">$199.99</p>
-                  <label>Laptops</label>
-
-                  <a href="catalog/product.html" class="btn btn-link"> Details</a>
-                  <button class="btn btn-primary btn-rounded btn-sm"> <i class="ion-bag"></i> Add to cart</button>
-                </div>
-              </div>
-
-              <div class="col-sm-6 col-md-3 product">
-                <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
-                <a href="./"><img src="{% static 'assets/img/products/chrome-book-14.jpg' %}" alt="HP Chromebook 14"/></a>
-
-                <div class="content">
-                  <h1 class="h4">HP Chromebook 14</h1>
-                  <p class="sale">$209.99</p>
+                  <h1 class="h4">{{rProduct.title}}</h1>
+                  <p class="price">${{rProduct.sale}}</p>
+                  {% if rProduct.isOffer %}
                   <p class="price through">$249.99</p>
-                  <label>Laptops</label>
+                  {% endif %}
+                  <label>{{rProduct.label}}</label>
 
-                  <a href="catalog/product.html" class="btn btn-link"> Details</a>
+                  <a href="catalog/product" class="btn btn-link"> Details</a>
                   <button class="btn btn-primary btn-rounded btn-sm"> <i class="ion-bag"></i> Add to cart</button>
                 </div>
               </div>
+
+          {% endfor %}
+          
         </div>
       </div>
     </div>
@@ -284,9 +294,9 @@
             <h1 class="h4">Products <i class="ion-plus-round hidden-sm hidden-md hidden-lg"></i> </h1>
 
             <div class="list-group">
-              <a href="#" class="list-group-item">Laptops</a>
-              <a href="#" class="list-group-item">Tablets</a>
-              <a href="#" class="list-group-item">Servers</a>
+              <a href="/catalog" class="list-group-item">Laptops</a>
+              <a href="/catalog" class="list-group-item">Tablets</a>
+              <a href="/catalog" class="list-group-item">Servers</a>
             </div>
           </div>
           <div class="col-sm-3 col-md-2">
@@ -294,8 +304,8 @@
 
             <div class="list-group">
               <a href="#" class="list-group-item">Returns</a>
-              <a href="#" class="list-group-item">FAQ</a>
-              <a href="#" class="list-group-item">Contacts</a>
+              <a href="/faq" class="list-group-item">FAQ</a>
+              <a href="/contacts" class="list-group-item">Contacts</a>
             </div>
           </div>
           <div class="col-sm-3 col-md-2">
@@ -330,17 +340,17 @@
 
           </div>
           <div class="col-sm-3 col-md-3 col-md-offset-1 align-right hidden-sm hidden-xs">
-            <h1 class="h4">FlyBuy, Inc.</h1>
+            <h1 class="h4">{{contactInfo.companyName}}</h1>
 
               <address>
-                1305 Market Street, Suite 800<br>
-                San Francisco, CA 94102<br>
-                <abbr title="Phone">P:</abbr> (123) 456-7890
+                {{contactInfo.addressText1}}<br>
+                {{contactInfo.addressText2}}<br>
+                <abbr title="Phone">P:</abbr>{{contactInfo.phoneNo}}
               </address>
 
               <address>
                 <strong>Support</strong><br>
-                <a href="mailto:#">sup@example.com</a>
+                <a href="mailto:#">{{contactInfo.supportMail}}</a>
               </address>
 
           </div>

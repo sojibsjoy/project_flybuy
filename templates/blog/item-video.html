@@ -1,4 +1,5 @@
 {% load static %}
+{% static 'assets/img/blog' as blogImgPath %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -73,15 +74,15 @@
 
     <div class="blog-item">
       <div class="tiles">
-        <a href="#video" data-gallery="#video" data-source="youtube" data-id="uf7U3Y2DFCA" data-title="MacBook Pro - brand new day for business" data-description="So capable, you won’t want to put it down. So thin and light, you won’t have to.">
-            <img src="{% static 'assets/img/blog/item-video.jpg' %}" alt="MacBook Pro"/>
+        <a href="#video" data-gallery="#video" data-source="youtube" data-id="{{videoBlogItem.id}}" data-title="{{videoBlogItem.title}}" data-description="{{videoBlogItem.desc}}">
+            <img src="{{blogImgPath}}/{{videoBlogItem.thumbImg}}" alt="{{videoBlogItem.thumbImgAltText}}"/>
 
           <div class="overlay"></div>
           <div class="content">
             <div class="content-outside">
               <div class="content-inside">
                 <i class="ion-ios-play"></i>
-                <h1>MacBook Pro <br> brand new day for business</h1>
+                <h1>{{ videoBlogItem.headline | linebreaks }}</h1>
               </div>
             </div>
           </div>
@@ -95,13 +96,7 @@
 	    	<div class="row">
 	    		<div class="col-sm-8 col-sm-offset-2">
 		    		 <p>
-		    		 	Organizations everywhere are realizing the potential that Mac brings to their employees by giving them the freedom to use the tools they already know and love.
-		    		 	<br><br>
-
-		    		 	Software and hardware made for each other. Because Apple designs both the software and hardware, every Mac delivers the best possible experience for employees. OS X works seamlessly with hardware in every Mac, like the super-responsive trackpad in Mac notebooks that make Multi-Touch gestures feel natural to use. And thanks to multicore Intel processors and fast flash storage, a Mac wakes instantly from sleep, ready to perform any task.
-		    		 	<br><br>
-
-		    		 	New ways for employees to get work done. With OS X and the built-in apps that come with every Mac, employees can be productive right away — on a platform they love. And with innovative new types of business apps, employees are able to collaborate in new ways and manage their work like never before.
+		    		 	{{ videoBlogItem.bodyText | linebreaks }}		    		 	
 		    		 </p>
 		    		 <br>
 
@@ -111,22 +106,19 @@
 
 		    		 <hr>
 		    		 <div class="comments">
-		    		 	<h2 class="h3">What do you think? (#2)</h2>
+		    		 	<h2 class="h3">What do you think? (#{{ vbcs | length }})</h2>
 		    		 	<br>
 
+               {% for vbc in vbcs %}
 
-		    		 	<h3>Anne Hathaway</h3>
-		    		 	<label>2 years ago</label>
+		    		 	<h3>{{vbc.authorName}}</h3>
+		    		 	<label>{{vbc.date}}</label>
 		    		 	<p>
-		    		 		Apple Music brings iTunes music streaming to the UK. But is it worth paying for? In our Apple Music review, we examine the service's features, UK pricing, audio quality and music library
+		    		 		{{vbc.comment}}
 		    		 	</p>
 
+               {% endfor %}		    		 	
 
-		    		 	<h3>Chris Hemsworth</h3>
-		    		 	<label>Today</label>
-		    		 	<p>
-		    		 		Samsung's Galaxy S7 smartphone is getting serious hype. Here's what it does better than Apple's iPhone 6s.
-		    		 	</p>
 		    		 	<br>
 
 		    		 	<button class="btn btn-default btn-sm" data-toggle="modal" data-target="#Modal-Comment"> <i class="ion-chatbox-working"></i> Add comment </button>
@@ -226,9 +218,9 @@
             <h1 class="h4">Products <i class="ion-plus-round hidden-sm hidden-md hidden-lg"></i> </h1>
 
             <div class="list-group">
-              <a href="#" class="list-group-item">Laptops</a>
-              <a href="#" class="list-group-item">Tablets</a>
-              <a href="#" class="list-group-item">Servers</a>
+              <a href="/catalog" class="list-group-item">Laptops</a>
+              <a href="/catalog" class="list-group-item">Tablets</a>
+              <a href="/catalog" class="list-group-item">Servers</a>
             </div>
           </div>
           <div class="col-sm-3 col-md-2">
@@ -236,8 +228,8 @@
 
             <div class="list-group">
               <a href="#" class="list-group-item">Returns</a>
-              <a href="#" class="list-group-item">FAQ</a>
-              <a href="#" class="list-group-item">Contacts</a>
+              <a href="/faq" class="list-group-item">FAQ</a>
+              <a href="/contacts" class="list-group-item">Contacts</a>
             </div>
           </div>
           <div class="col-sm-3 col-md-2">
@@ -272,17 +264,17 @@
 
           </div>
           <div class="col-sm-3 col-md-3 col-md-offset-1 align-right hidden-sm hidden-xs">
-            <h1 class="h4">FlyBuy, Inc.</h1>
+            <h1 class="h4">{{contactInfo.companyName}}</h1>
 
               <address>
-                1305 Market Street, Suite 800<br>
-                San Francisco, CA 94102<br>
-                <abbr title="Phone">P:</abbr> (123) 456-7890
+                {{contactInfo.addressText1}}<br>
+                {{contactInfo.addressText2}}<br>
+                <abbr title="Phone">P:</abbr>{{contactInfo.phoneNo}}
               </address>
 
               <address>
                 <strong>Support</strong><br>
-                <a href="mailto:#">sup@example.com</a>
+                <a href="mailto:#">{{contactInfo.supportMail}}</a>
               </address>
 
           </div>

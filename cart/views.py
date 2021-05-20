@@ -1,8 +1,14 @@
 from django.shortcuts import render
-from catalog.models import CartItem
+from cart.models import CartItem
+from checkout.models import Summary
+from contacts.models import ContactInfo
 
 
 def cart(request):
+
+    summary = Summary()
+    summary.subTotal = 1499.00
+    summary.total = 1499.00
 
     cartItem1 = CartItem()
     cartItem1.img = "chrome-book-11.jpg"
@@ -38,4 +44,12 @@ def cart(request):
 
     cartItems = [cartItem1, cartItem2, cartItem3, cartItem4]
 
-    return render(request, 'cart/cart.html', {'cartItems': cartItems})
+    contactInfo = ContactInfo()
+    contactInfo.companyName = "FlyBuy, Inc."
+    contactInfo.addressText1 = "1305 Market Street, Suite 800"
+    contactInfo.addressText2 = "San Francisco, CA 94102"
+    contactInfo.phoneNo = " (123) 456-7890"
+    contactInfo.supportMail = "sup@example.com"
+    contactInfo.partnerMail = "col@example.com"
+
+    return render(request, 'cart/cart.html', {'summary': summary, 'cartItems': cartItems, 'contactInfo': contactInfo})

@@ -473,9 +473,9 @@
             <h1 class="h4">Products <i class="ion-plus-round hidden-sm hidden-md hidden-lg"></i> </h1>
 
             <div class="list-group">
-              <a href="#" class="list-group-item">Laptops</a>
-              <a href="#" class="list-group-item">Tablets</a>
-              <a href="#" class="list-group-item">Servers</a>
+              <a href="/catalog" class="list-group-item">Laptops</a>
+              <a href="/catalog" class="list-group-item">Tablets</a>
+              <a href="/catalog" class="list-group-item">Servers</a>
             </div>
           </div>
           <div class="col-sm-3 col-md-2">
@@ -483,8 +483,8 @@
 
             <div class="list-group">
               <a href="#" class="list-group-item">Returns</a>
-              <a href="#" class="list-group-item">FAQ</a>
-              <a href="#" class="list-group-item">Contacts</a>
+              <a href="/faq" class="list-group-item">FAQ</a>
+              <a href="/contacts" class="list-group-item">Contacts</a>
             </div>
           </div>
           <div class="col-sm-3 col-md-2">
@@ -519,17 +519,17 @@
 
           </div>
           <div class="col-sm-3 col-md-3 col-md-offset-1 align-right hidden-sm hidden-xs">
-            <h1 class="h4">FlyBuy, Inc.</h1>
+            <h1 class="h4">{{contactInfo.companyName}}</h1>
 
               <address>
-                1305 Market Street, Suite 800<br>
-                San Francisco, CA 94102<br>
-                <abbr title="Phone">P:</abbr> (123) 456-7890
+                {{contactInfo.addressText1}}<br>
+                {{contactInfo.addressText2}}<br>
+                <abbr title="Phone">P:</abbr>{{contactInfo.phoneNo}}
               </address>
 
               <address>
                 <strong>Support</strong><br>
-                <a href="mailto:#">sup@example.com</a>
+                <a href="mailto:#">{{contactInfo.supportMail}}</a>
               </address>
 
           </div>

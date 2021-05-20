@@ -1,3 +1,10 @@
 from django.db import models
 
-# Create your models here.
+
+class ContactInfo:
+    companyName: str
+    addressText1: str
+    addressText2: str
+    phoneNo: str
+    supportMail: str
+    partnerMail: str

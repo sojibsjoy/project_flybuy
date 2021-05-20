@@ -1,4 +1,6 @@
 {% load static %}
+{% static 'assets/img/shipping' as shippingImgPath %}
+{% static 'assets/img/payments' as paymentImgPath %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -86,28 +88,26 @@
               <div class="panel-body">
                 <div class="checkout">
                     <div class="addresses box-select">
-                        <h2> 1. Delevery address</h2>
+                        <h2> 1. Delivery address</h2>
                         <hr class="offset-sm">
 
+                        {% for dAddress in dAddresses %}
+
+                        {% if dAddress.isSelected %}
+
                         <address class="box-default sm-padding" data-style="selected">
-                            <hr class="offset-sm">
-
-                            <h3 class="no-margin"><i class="ion-ios-person"></i> John Doe</h3>
-                            <p>
-                                <i class="ion-ios-location"></i> 100520, New York City, 45 Park Avenue, United States
-                            </p>
-
-                            <div class="check">
-                                <i class="ion-checkmark-round"></i>
-                            </div>
-                            <hr class="offset-sm">
-                        </address>
+                        
+                        {% else %}
 
                         <address class="box-default sm-padding">
+
+                        {% endif %}
+
                             <hr class="offset-sm">
-                            <h3 class="no-margin"><i class="ion-ios-person"></i> John Doe</h3>
+
+                            <h3 class="no-margin"><i class="ion-ios-person"></i> {{dAddress.name}}</h3>
                             <p>
-                                <i class="ion-ios-location"></i> 100520, New York City, 45 Park Avenue, United States
+                                <i class="ion-ios-location"></i> {{dAddress.building}}, {{dAddress.street}} {{dAddress.city}}, {{dAddress.country}}, {{dAddress.zipCode}}
                             </p>
 
                             <div class="check">
@@ -115,6 +115,8 @@
                             </div>
                             <hr class="offset-sm">
                         </address>
+
+                        {% endfor %}
 
                         <hr class="offset-sm">
                         <a href="#addaddress" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
@@ -416,7 +418,7 @@
                                         <hr class="offset-sm visible-xs">
                                         <p>Zip</p>
 
-                                        <input type="text" class="form-control input-sm" name="zip" value="" required="" placeholder="" />
+                                        <input type="number" class="form-control input-sm" name="zip" value="" required="" placeholder="" />
                                       </div>
                                     </div>
                                 </div>
@@ -435,56 +437,32 @@
                     </div>
 
                     <div class="delivery box-select">
-                        <h2> 2. Delevery option </h2>
+                        <h2> 2. Delivery option </h2>
                         <hr class="offset-sm">
 
                         <div class="row"> 
-                            <div class="col-md-6">
-                                <div class="box-default sm-padding" data-style="selected">
-                                    <hr class="offset-sm">
-                                    <img src="{% static 'assets/img/shipping/fedex.jpg' %}" title="fedex" alt="fedex" />
-                                    <span>&nbsp;&nbsp;2-3 working days</span>
-                                    <div class="check">
-                                        <i class="ion-checkmark-round"></i>
-                                    </div>
-                                    <hr class="offset-sm">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="box-default sm-padding">
-                                    <hr class="offset-sm">
-                                    <img src="{% static 'assets/img/shipping/dhl.jpg' %}" title="dhl" alt="dhl" />
-                                    <span>&nbsp;&nbsp;5-10 working days</span>
-                                    <div class="check">
-                                        <i class="ion-checkmark-round"></i>
-                                    </div>
-                                    <hr class="offset-sm">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="box-default sm-padding">
-                                    <hr class="offset-sm">
-                                    <img src="{% static 'assets/img/shipping/ems.jpg' %}" title="ems" alt="ems" />
-                                    <span>&nbsp;&nbsp;5-10 working days</span>
-                                    <div class="check">
-                                        <i class="ion-checkmark-round"></i>
-                                    </div>
-                                    <hr class="offset-sm">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="box-default sm-padding">
-                                    <hr class="offset-sm">
-                                    <img src="{% static 'assets/img/shipping/ups.jpg' %}" title="ups" alt="ups" />
-                                    <span>&nbsp;&nbsp;12-14 working days</span>
-                                    <div class="check">
-                                        <i class="ion-checkmark-round"></i>
-                                    </div>
-                                    <hr class="offset-sm">
-                                </div>
-                            </div>
-                        </div>
 
+                          {% for dOption in dOptions %}
+
+                            <div class="col-md-6">
+                              {% if dOption.isSelected %}
+                                <div class="box-default sm-padding" data-style="selected">
+                              {% else %}
+                                <div class="box-default sm-padding">
+                              {% endif %}
+                                    <hr class="offset-sm">
+                                    <img src="{{shippingImgPath}}/{{dOption.img}}" title="{{dOption.imgTitle}}" alt="{{dOption.imgAltText}}" />
+                                    <span>&nbsp;&nbsp;{{dOption.desc}}</span>
+                                    <div class="check">
+                                        <i class="ion-checkmark-round"></i>
+                                    </div>
+                                    <hr class="offset-sm">
+                                </div>
+                            </div>
+
+                          {% endfor %}
+                            
+                        </div>
 
                         <hr class="offset-sm">
                         <hr>
@@ -495,28 +473,27 @@
                         <hr class="offset-sm">
                         
                         <div class="row"> 
+
+                          {% for pMethod in pMethods %}
+
                             <div class="col-md-6">
+                              {% if pMethod.isSelected %}
                                 <div class="box-default sm-padding" data-style="selected">
-                                    <hr class="offset-sm">
-                                    <img src="{% static 'assets/img/payments/paypal.jpg' %}" title="paypal" alt="paypal" />
-                                    <span>&nbsp;&nbsp;0% Service fee</span>
-                                    <div class="check">
-                                        <i class="ion-checkmark-round"></i>
-                                    </div>
-                                    <hr class="offset-sm">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
+                              {% else %}
                                 <div class="box-default sm-padding">
+                              {% endif %}
                                     <hr class="offset-sm">
-                                    <img src="{% static 'assets/img/payments/stripe.jpg' %}" title="stripe" alt="stripe" />
-                                    <span>&nbsp;&nbsp;1% Service fee</span>
+                                    <img src="{{paymentImgPath}}/{{pMethod.img}}" title="{{pMethod.imgTitle}}" alt="{{pMethod.imgAltText}}" />
+                                    <span>&nbsp;&nbsp;{{pMethod.desc}}</span>
                                     <div class="check">
                                         <i class="ion-checkmark-round"></i>
                                     </div>
                                     <hr class="offset-sm">
                                 </div>
                             </div>
+
+                          {% endfor %}
+                          
                         </div>
 
 
@@ -528,8 +505,8 @@
                         <h2> 4. Remark </h2>
                         <hr class="offset-sm">
 
-                        <textarea name="remark" class="form-control" placeholder="Please, type remark" rows="5"></textarea>
-                        <hr class="offset-sm">
+                        <textarea name="remark" class="form-control" placeholder="Please, type remark" rows="5"></textarea>                        
+                        <hr class="offset-sm">                        
                     </div>
                 </div>
               </div>
@@ -545,14 +522,14 @@
                   <div class="container-fluid">
                       <div class="row">
                           <div class="col-xs-6">
-                              <p>Subtotal (7 items)</p>
+                              <p>Subtotal ({{ cartItems | length }} items)</p>
                               <p>Discount</p>
                               <p>Delivery</p>
                           </div>
                           <div class="col-xs-6">
-                              <p><b>$1499</b></p>
-                              <p><b>$0</b></p>
-                              <p><b>$0</b></p>
+                              <p><b>${{summary.subTotal}}</b></p>
+                              <p><b>${{summary.discount}}</b></p>
+                              <p><b>${{summary.delivery}}</b></p>
                           </div>
                       </div>
                   </div>
@@ -588,7 +565,7 @@
                               <h3 class="no-margin">Total sum</h3>
                           </div>
                           <div class="col-xs-6">
-                              <h3 class="no-margin">$1499</h3>
+                              <h3 class="no-margin">${{summary.total}}</h3>
                           </div>
                       </div>
                   </div>
@@ -692,9 +669,9 @@
             <h1 class="h4">Products <i class="ion-plus-round hidden-sm hidden-md hidden-lg"></i> </h1>
 
             <div class="list-group">
-              <a href="#" class="list-group-item">Laptops</a>
-              <a href="#" class="list-group-item">Tablets</a>
-              <a href="#" class="list-group-item">Servers</a>
+              <a href="/catalog" class="list-group-item">Laptops</a>
+              <a href="/catalog" class="list-group-item">Tablets</a>
+              <a href="/catalog" class="list-group-item">Servers</a>
             </div>
           </div>
           <div class="col-sm-3 col-md-2">
@@ -702,8 +679,8 @@
 
             <div class="list-group">
               <a href="#" class="list-group-item">Returns</a>
-              <a href="#" class="list-group-item">FAQ</a>
-              <a href="#" class="list-group-item">Contacts</a>
+              <a href="/faq" class="list-group-item">FAQ</a>
+              <a href="/contacts" class="list-group-item">Contacts</a>
             </div>
           </div>
           <div class="col-sm-3 col-md-2">
@@ -738,17 +715,17 @@
 
           </div>
           <div class="col-sm-3 col-md-3 col-md-offset-1 align-right hidden-sm hidden-xs">
-            <h1 class="h4">FlyBuy, Inc.</h1>
+            <h1 class="h4">{{contactInfo.companyName}}</h1>
 
               <address>
-                1305 Market Street, Suite 800<br>
-                San Francisco, CA 94102<br>
-                <abbr title="Phone">P:</abbr> (123) 456-7890
+                {{contactInfo.addressText1}}<br>
+                {{contactInfo.addressText2}}<br>
+                <abbr title="Phone">P:</abbr>{{contactInfo.phoneNo}}
               </address>
 
               <address>
                 <strong>Support</strong><br>
-                <a href="mailto:#">sup@example.com</a>
+                <a href="mailto:#">{{contactInfo.supportMail}}</a>
               </address>
 
           </div>

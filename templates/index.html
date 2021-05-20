@@ -1,4 +1,5 @@
 {% load static %}
+{% static 'assets/img/carousel' as slideImgPath %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -78,7 +79,12 @@
         <!-- <button class="btn btn-control"></button> -->
 
         <div class="items">
-          <div class="item" data-marker="1">
+
+          {% for item in items %}
+
+          {% if item.leftPosition %}
+
+          <div class="item" data-marker="{{item.dataMarker}}">
             <img src="{% static 'assets/img/carousel/bckg.jpg' %}" alt="Background" class="background"/>
 
             <div class="content">
@@ -87,13 +93,13 @@
                   <div class="container">
                     <div class="row">
                       <div class="col-sm-12 align-center">
-                        <h1>New amazing laptops</h1>
-                        <p>Provide lightweight and powerull</p>
-                        <a href="./catalog/">More laptops ></a>
+                        <h1>{{item.title}}</h1>
+                        <p>{{item.subTitle}}</p>
+                        <a href="/catalog">More laptops ></a>
                         <br><br>
                       </div>
                       <div class="col-sm-6 col-sm-offset-3 align-center">
-                        <img src="{% static 'assets/img/carousel/newlaptops.jpg' %}" alt="Laptops"/>
+                        <img src="{{slideImgPath}}/{{item.imgPrimary}}" alt="{{item.imgAltText}}"/>
                       </div>
                     </div>
                   </div>
@@ -101,7 +107,12 @@
               </div>
             </div>
           </div>
-          <div class="item active" data-marker="2">
+
+          {% endif %}
+
+          {% if item.centerPosition %}
+
+          <div class="item active" data-marker="{{item.dataMarker}}">
             <img src="{% static 'assets/img/carousel/bckg.jpg' %}" alt="Background" class="background"/>
 
             <div class="content">
@@ -110,12 +121,12 @@
                   <div class="container">
                     <div class="row">
                       <div class="col-sm-8 col-sm-offset-2 align-center">
-                        <img src="{% static 'assets/img/carousel/surfaces.jpg' %}" alt="Surface Pro"/>
+                        <img src="{{slideImgPath}}/{{item.imgPrimary}}" alt="{{item.imgAltText}}"/>
                       </div>
                       <div class="col-sm-12 align-center">
-                        <h1>8 Windows Hybrid Laptops</h1>
-                        <p>The laptop comes with an Intel i5 chip and 8GB of RAM.</p>
-                        <a href="./catalog/">View surfaces ></a>
+                        <h1>{{item.title}}</h1>
+                        <p>{{item.subTitle}}</p>
+                        <a href="/catalog">View surfaces ></a>
                       </div>
                     </div>
                   </div>
@@ -123,7 +134,12 @@
               </div>
             </div>
           </div>
-          <div class="item" data-marker="3">
+
+          {% endif %}
+
+          {% if item.rightPosition %}
+
+          <div class="item" data-marker="{{item.dataMarker}}">
             <img src="{% static 'assets/img/carousel/bckg.jpg' %}" alt="Background" class="background"/>
 
             <div class="content">
@@ -132,20 +148,19 @@
                   <div class="container">
                     <div class="row">
                       <div class="col-sm-5 col-sm-offset-1 align-center">
-                        <img src="{% static 'assets/img/carousel/ipadair2.jpg' %}" alt="iPad Air 2" class="hidden-xs hidden-sm"/>
-                        <img src="{% static 'assets/img/carousel/ipadair2m.jpg' %}" alt="iPad Air 2" class="hidden-md hidden-lg"/>
+                        <img src="{{slideImgPath}}/{{item.imgPrimary}}" alt="{{item.imgAltText}}" class="hidden-xs hidden-sm"/>
+                        <img src="{{slideImgPath}}/{{item.imgSecondary}}" alt="{{item.imgAltText}}" class="hidden-md hidden-lg"/>
                       </div>
                       <div class="col-sm-4 align-left">
                         <br class="hidden-xs hidden-sm"><br class="hidden-xs hidden-sm"><br class="hidden-xs hidden-sm">
                         <br class="hidden-xs hidden-sm"><br class="hidden-xs hidden-sm"><br class="hidden-xs hidden-sm">
-                        <h1>Luxury devices</h1>
+                        <h1>{{item.title}}</h1>
                         <br>
                         
                         <p>
-                          Luxury watches, business tablets and 3D touch: How Apple plans to stay ahead in mobile.
-                          When it comes to the brand’s latest iPhones, the biggest excitement isn’t focused on the addition of a rose gold coloured device but the new 3D touch sensors.
+                          {{item.subTitle}}
                         </p>
-                        <a href="./blog/item-photo">View article ></a>
+                        <a href="/blog/item-photo">View article ></a>
                       </div>
                     </div>
                   </div>
@@ -153,12 +168,31 @@
               </div>
             </div>
           </div>
+
+          {% endif %}
+
+          {% endfor %}
+
         </div>
 
         <ul class="markers">
-          <li data-marker="1"><img src="{% static 'assets/img/carousel/newlaptops.jpg' %}" alt="Background"/></li>
-          <li data-marker="2" class="active"><img src="{% static 'assets/img/carousel/surfaces.jpg' %}" alt="Background"/></li>
-          <li data-marker="3"><img src="{% static 'assets/img/carousel/ipadair2.jpg' %}" alt="Background"/></li>
+          
+          {% for item in items %}
+          
+          {% if item.leftPosition or item.rightPosition %}
+
+          <li data-marker="{{item.dataMarker}}"><img src="{{slideImgPath}}/{{item.imgPrimary}}" alt="{{item.imgAltText}}"/></li>
+
+          {% endif %}
+
+          {% if item.centerPosition %}
+
+          <li data-marker="{{item.dataMarker}}" class="active"><img src="{{slideImgPath}}/{{item.imgPrimary}}" alt="{{item.imgAltText}}"/></li>
+
+          {% endif %}
+
+          {% endfor %}
+
         </ul>
       </div>
     </header>
@@ -291,9 +325,9 @@
             <h1 class="h4">Products <i class="ion-plus-round hidden-sm hidden-md hidden-lg"></i> </h1>
 
             <div class="list-group">
-              <a href="#" class="list-group-item">Laptops</a>
-              <a href="#" class="list-group-item">Tablets</a>
-              <a href="#" class="list-group-item">Servers</a>
+              <a href="/catalog" class="list-group-item">Laptops</a>
+              <a href="/catalog" class="list-group-item">Tablets</a>
+              <a href="/catalog" class="list-group-item">Servers</a>
             </div>
           </div>
           <div class="col-sm-3 col-md-2">
@@ -301,8 +335,8 @@
 
             <div class="list-group">
               <a href="#" class="list-group-item">Returns</a>
-              <a href="#" class="list-group-item">FAQ</a>
-              <a href="#" class="list-group-item">Contacts</a>
+              <a href="/faq" class="list-group-item">FAQ</a>
+              <a href="/contacts" class="list-group-item">Contacts</a>
             </div>
           </div>
           <div class="col-sm-3 col-md-2">
@@ -337,17 +371,17 @@
 
           </div>
           <div class="col-sm-3 col-md-3 col-md-offset-1 align-right hidden-sm hidden-xs">
-            <h1 class="h4">FlyBuy, Inc.</h1>
+            <h1 class="h4">{{contactInfo.companyName}}</h1>
 
               <address>
-                1305 Market Street, Suite 800<br>
-                San Francisco, CA 94102<br>
-                <abbr title="Phone">P:</abbr> (123) 456-7890
+                {{contactInfo.addressText1}}<br>
+                {{contactInfo.addressText2}}<br>
+                <abbr title="Phone">P:</abbr>{{contactInfo.phoneNo}}
               </address>
 
               <address>
                 <strong>Support</strong><br>
-                <a href="mailto:#">sup@example.com</a>
+                <a href="mailto:#">{{contactInfo.supportMail}}</a>
               </address>
 
           </div>

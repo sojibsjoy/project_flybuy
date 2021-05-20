@@ -1,8 +1,17 @@
 from django.shortcuts import render
-from .models import NewArticle, NewProducts, Recommendation, SlideItem
+from home.models import NewArticle, NewProducts, Recommendation, SlideItem
+from contacts.models import ContactInfo
 
 
 def home(request):
+
+    contactInfo = ContactInfo()
+    contactInfo.companyName = "FlyBuy, Inc."
+    contactInfo.addressText1 = "1305 Market Street, Suite 800"
+    contactInfo.addressText2 = "San Francisco, CA 94102"
+    contactInfo.phoneNo = " (123) 456-7890"
+    contactInfo.supportMail = "sup@example.com"
+    contactInfo.partnerMail = "col@example.com"
 
     item1 = SlideItem()
     item1.dataMarker = 1
@@ -122,4 +131,4 @@ def home(request):
 
     newArticles = [newArticle1, newArticle2]
 
-    return render(request, 'home/home.html', {'items': items, 'products': products, 'recommends': recommends, 'newArticles': newArticles})
+    return render(request, 'home/home.html', {'items': items, 'products': products, 'recommends': recommends, 'newArticles': newArticles, 'contactInfo': contactInfo})

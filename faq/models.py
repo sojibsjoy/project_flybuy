@@ -1,3 +1,13 @@
 from django.db import models
 
-# Create your models here.
+
+class LeftQuestion:
+    qId: str
+    qText: str
+    qAnswer: str
+
+
+class RightQuestion:
+    qId: str
+    qText: str
+    qAnswer: str

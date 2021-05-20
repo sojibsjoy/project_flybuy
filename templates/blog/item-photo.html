@@ -1,4 +1,5 @@
 {% load static %}
+{% static 'assets/img/blog' as blogImgPath %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -72,29 +73,17 @@
     </nav>
 
     <div class="blog-item">
-    	<img src="{% static 'assets/img/blog/item-photo.jpg' %}" alt="Apple 3D Touch"/>
+    	<img src="{{blogImgPath}}/{{photoBlogItem.img}}" alt="{{photoBlogItem.imgAltText}}"/>
       <div class="container">
     		<br><br>
 
 	    	<div class="row">
 	    		<div class="col-sm-8 col-sm-offset-2">
-	    			<h1>Apple Introduces 3D Touch, The Next Generation Of Multitouch For The iPhone 6S</h1>
+	    			<h1>{{photoBlogItem.headline}}</h1>
 		    		 <br>
 
 		    		 <p>
-		    		 	In an effort to deliver the next generation of what Apple CEO Tim Cook called "the most-loved phone in the world," the iPhone 6S has created the next generation of its industry-shattering multitouch screen: the 3D Touch, which Chief Design Officer Jony Ive called "a tremendous breakthrough in interacting with our devices" in the company's demo video.
-		    		 	<br><br>
-
-		    		 	Deemed "a whole new dimension to the way you experience your iPhone" by Apple, 3D Touch recognizes a user's wanted action via finger pressure and force, rather than a mere gesture like the traditional swipe or pinch.
-		    		 	<br><br>
-
-		    		 	But how exactly does this work? The explanation is somewhat simple, even if the technology is more extensive than meets the eye. To wit: sensors within the smartphone measure the force of finger pressure, which then translates, letting the iPhone know the users needs and wants.
-		    		 	<br><br>
-
-		    		 	For example, if a user applies a light pressure to the screen when selecting an option to view content, the preview for said content pops up; if the user presses harder on the option for the content, it will open automatically.
-		    		 	<br><br>
-
-		    		 	Apple's Craig Federighi, senior vice president of software engineering, who conducted a live demo at the Apple event, also demonstrated how the new interactive interface eliminates going "in and out" of windows in certain apps, like mail apps – with 3D Touch, pressure dictates whether the user wants a sneak peek of a message, or to fully view it.
+		    		 	{{ photoBlogItem.bodyText | linebreaks }}		    		 	
 		    		 </p>
 		    		 <br>
 
@@ -104,22 +93,18 @@
 
 		    		 <hr>
 		    		 <div class="comments">
-		    		 	<h2 class="h3">What do you think? (#2)</h2>
+		    		 	<h2 class="h3">What do you think? (#{{ pbcs | length }})</h2>
 		    		 	<br>
 
-
-		    		 	<h3>Anne Hathaway</h3>
-		    		 	<label>2 years ago</label>
+              {% for pbc in pbcs %}
+		    		 	<h3>{{pbc.authorName}}</h3>
+		    		 	<label>{{pbc.date}}</label>
 		    		 	<p>
-		    		 		Apple Music brings iTunes music streaming to the UK. But is it worth paying for? In our Apple Music review, we examine the service's features, UK pricing, audio quality and music library
+		    		 		{{pbc.comment}}
 		    		 	</p>
 
+               {% endfor %}
 
-		    		 	<h3>Chris Hemsworth</h3>
-		    		 	<label>Today</label>
-		    		 	<p>
-		    		 		Samsung's Galaxy S7 smartphone is getting serious hype. Here's what it does better than Apple's iPhone 6s.
-		    		 	</p>
 		    		 	<br>
 
 		    		 	<button class="btn btn-default btn-sm" data-toggle="modal" data-target="#Modal-Comment"> <i class="ion-chatbox-working"></i> Add comment </button>
@@ -219,9 +204,9 @@
             <h1 class="h4">Products <i class="ion-plus-round hidden-sm hidden-md hidden-lg"></i> </h1>
 
             <div class="list-group">
-              <a href="#" class="list-group-item">Laptops</a>
-              <a href="#" class="list-group-item">Tablets</a>
-              <a href="#" class="list-group-item">Servers</a>
+              <a href="/catalog" class="list-group-item">Laptops</a>
+              <a href="/catalog" class="list-group-item">Tablets</a>
+              <a href="/catalog" class="list-group-item">Servers</a>
             </div>
           </div>
           <div class="col-sm-3 col-md-2">
@@ -229,8 +214,8 @@
 
             <div class="list-group">
               <a href="#" class="list-group-item">Returns</a>
-              <a href="#" class="list-group-item">FAQ</a>
-              <a href="#" class="list-group-item">Contacts</a>
+              <a href="/faq" class="list-group-item">FAQ</a>
+              <a href="/contacts" class="list-group-item">Contacts</a>
             </div>
           </div>
           <div class="col-sm-3 col-md-2">
@@ -265,17 +250,17 @@
 
           </div>
           <div class="col-sm-3 col-md-3 col-md-offset-1 align-right hidden-sm hidden-xs">
-            <h1 class="h4">FlyBuy, Inc.</h1>
+            <h1 class="h4">{{contactInfo.companyName}}</h1>
 
               <address>
-                1305 Market Street, Suite 800<br>
-                San Francisco, CA 94102<br>
-                <abbr title="Phone">P:</abbr> (123) 456-7890
+                {{contactInfo.addressText1}}<br>
+                {{contactInfo.addressText2}}<br>
+                <abbr title="Phone">P:</abbr>{{contactInfo.phoneNo}}
               </address>
 
               <address>
                 <strong>Support</strong><br>
-                <a href="mailto:#">sup@example.com</a>
+                <a href="mailto:#">{{contactInfo.supportMail}}</a>
               </address>
 
           </div>

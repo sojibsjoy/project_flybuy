@@ -73,93 +73,50 @@
     <hr class="offset-md">
 
     <div class="container faq">
-        <div class="row">
+        <div class="row">         
+
           <div class="col-sm-6">
-            <a class="" role="button" data-toggle="collapse" href="#question1" aria-expanded="true" aria-controls="question1">
-              <h1 class="h3">How much should I bid?</h1>
+
+            {% for leftQ in leftQs %}
+
+            <a class="" role="button" data-toggle="collapse" href="#{{leftQ.qId}}" aria-expanded="false" aria-controls="{{leftQ.qId}}">
+              <h1 class="h3">{{leftQ.qText}}</h1>
             </a>
 
-            <div class="collapse" id="question1">
+            <div class="collapse" id="{{leftQ.qId}}">
               <div class="well">
                 <p>
-                  FlyBuy is great for finding deals, as long as you know what you're looking for and how much the item is worth. Having that information is vital to placing bids in correct amount and saving lots of money.
+                  {{leftQ.qAnswer}}
                 </p>
               </div>
             </div>
             <br>
-            <!-- //// -->
 
-            <a class="" role="button" data-toggle="collapse" href="#question3" aria-expanded="false" aria-controls="question3">
-              <h1 class="h3">What's the best way to find my favorite items?</h1>
-            </a>
+            {% endfor %}
 
-            <div class="collapse" id="question3">
-              <div class="well">
-                <p>
-                  If you're sick of trying to remember your searches for all the different types of spellings, all the different sellers you like, and all the different things you collect, FlyBuy provides you with an easy way to remember - My FlyBuy.
-                </p>
-              </div>
-            </div>
-            <br>
-            <!-- //// -->
+          </div>          
 
-            <a class="" role="button" data-toggle="collapse" href="#question5" aria-expanded="false" aria-controls="question5">
-              <h1 class="h3">What should I use to pay?</h1>
-            </a>
-
-            <div class="collapse" id="question5">
-              <div class="well">
-                <p>
-                  Although we've heard of issues with PayPal, we still recommend them for nearly all purchases. Nearly all sellers accept PayPal payment, and many purchases are automatically covered for fraud protection. Please check PayPal.com for details on their account protection tips and fraud protection services.
-                </p>
-              </div>
-            </div>
-            <br>
-            <!-- //// -->
-          </div>
           <div class="col-sm-6">
-            <a class="" role="button" data-toggle="collapse" href="#question2" aria-expanded="true" aria-controls="question2">
-              <h1 class="h3">What's the best way to search?</h1>
+
+            {% for rightQ in rightQs %}
+
+            <a class="" role="button" data-toggle="collapse" href="#{{rightQ.qId}}" aria-expanded="false" aria-controls="{{rightQ.qId}}">
+              <h1 class="h3">{{rightQ.qText}}</h1>
             </a>
 
-            <div class="collapse" id="question2">
+            <div class="collapse" id="{{rightQ.qId}}">
               <div class="well">
                 <p>
-                  FlyBuy search engine is pretty good but can be a bit overwhelming if you're not sure what you're looking for, or if you're just browsing. FlyBuy is constantly working at upgrading its search engine to make things easier to find (it's in their best interest to have as many buyers for items as possible).
+                  {{rightQ.qAnswer}}
                 </p>
               </div>
             </div>
             <br>
-            <!-- //// -->
 
-            <a class="" role="button" data-toggle="collapse" href="#question4" aria-expanded="false" aria-controls="question4">
-              <h1 class="h3">What's a good shipping rate/method?</h1>
-            </a>
+            {% endfor %}
 
-            <div class="collapse" id="question4">
-              <div class="well">
-                <p>
-                  If possible, check with the seller to ask how they'll pack the item. I once received a used laptop that was literally scotch-taped into a used, ripped, USPS priority box that was too small so part of the computer was sticking out - with no padding what-so-ever. If you're getting breakable items, make sure the seller will pack it correctly.
-                </p>
-              </div>
-            </div>
-            <br>
-            <!-- //// -->
-
-            <a class="" role="button" data-toggle="collapse" href="#question6" aria-expanded="false" aria-controls="question6">
-              <h1 class="h3">What should I do if the item is defective/broken/wrong?</h1>
-            </a>
-
-            <div class="collapse" id="question6">
-              <div class="well">
-                <p>
-                  The first thing to do is to double check the item - make sure it actually is broken. You'll probably need to go over the item description on eBay to verify that it didn't arrive as promised. Next, contact the seller directly and describe the issue with the item.
-                </p>
-              </div>
-            </div>
-            <br>
-            <!-- //// -->
           </div>
+
         </div>
     </div>
 
@@ -279,9 +236,9 @@
             <h1 class="h4">Products <i class="ion-plus-round hidden-sm hidden-md hidden-lg"></i> </h1>
 
             <div class="list-group">
-              <a href="#" class="list-group-item">Laptops</a>
-              <a href="#" class="list-group-item">Tablets</a>
-              <a href="#" class="list-group-item">Servers</a>
+              <a href="/catalog" class="list-group-item">Laptops</a>
+              <a href="/catalog" class="list-group-item">Tablets</a>
+              <a href="/catalog" class="list-group-item">Servers</a>
             </div>
           </div>
           <div class="col-sm-3 col-md-2">
@@ -289,8 +246,8 @@
 
             <div class="list-group">
               <a href="#" class="list-group-item">Returns</a>
-              <a href="#" class="list-group-item">FAQ</a>
-              <a href="#" class="list-group-item">Contacts</a>
+              <a href="/faq" class="list-group-item">FAQ</a>
+              <a href="/contacts" class="list-group-item">Contacts</a>
             </div>
           </div>
           <div class="col-sm-3 col-md-2">
@@ -325,17 +282,17 @@
 
           </div>
           <div class="col-sm-3 col-md-3 col-md-offset-1 align-right hidden-sm hidden-xs">
-            <h1 class="h4">FlyBuy, Inc.</h1>
+            <h1 class="h4">{{contactInfo.companyName}}</h1>
 
               <address>
-                1305 Market Street, Suite 800<br>
-                San Francisco, CA 94102<br>
-                <abbr title="Phone">P:</abbr> (123) 456-7890
+                {{contactInfo.addressText1}}<br>
+                {{contactInfo.addressText2}}<br>
+                <abbr title="Phone">P:</abbr>{{contactInfo.phoneNo}}
               </address>
 
               <address>
                 <strong>Support</strong><br>
-                <a href="mailto:#">sup@example.com</a>
+                <a href="mailto:#">{{contactInfo.supportMail}}</a>
               </address>
 
           </div>
