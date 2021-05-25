@@ -1,5 +1,4 @@
 {% load static %}
-{% static 'assets/img/carousel' as slideImgPath %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -66,8 +65,13 @@
               </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+              {% if user.is_authenticated %}
+              <li><a href="#account"> <i class="ion-android-person"></i> Hello, {{ user.first_name }} </a></li>
+              <li><a href="/home/logout"> Logout</a></li>
+              {% else %}
               <li><a href="/login"> <i class="ion-android-person"></i> Login </a></li>
               <li><a href="/signup"> Sign Up</a></li>
+              {% endif %}
             </ul>
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
@@ -99,7 +103,7 @@
                         <br><br>
                       </div>
                       <div class="col-sm-6 col-sm-offset-3 align-center">
-                        <img src="{{slideImgPath}}/{{item.imgPrimary}}" alt="{{item.imgAltText}}"/>
+                        <img src="{{item.imgPrimary.url}}" alt="{{item.imgAltText}}"/>
                       </div>
                     </div>
                   </div>
@@ -121,7 +125,7 @@
                   <div class="container">
                     <div class="row">
                       <div class="col-sm-8 col-sm-offset-2 align-center">
-                        <img src="{{slideImgPath}}/{{item.imgPrimary}}" alt="{{item.imgAltText}}"/>
+                        <img src="{{item.imgPrimary.url}}" alt="{{item.imgAltText}}"/>
                       </div>
                       <div class="col-sm-12 align-center">
                         <h1>{{item.title}}</h1>
@@ -148,8 +152,8 @@
                   <div class="container">
                     <div class="row">
                       <div class="col-sm-5 col-sm-offset-1 align-center">
-                        <img src="{{slideImgPath}}/{{item.imgPrimary}}" alt="{{item.imgAltText}}" class="hidden-xs hidden-sm"/>
-                        <img src="{{slideImgPath}}/{{item.imgSecondary}}" alt="{{item.imgAltText}}" class="hidden-md hidden-lg"/>
+                        <img src="{{item.imgPrimary.url}}" alt="{{item.imgAltText}}" class="hidden-xs hidden-sm"/>
+                        <img src="{{item.imgSecondary.url}}" alt="{{item.imgAltText}}" class="hidden-md hidden-lg"/>
                       </div>
                       <div class="col-sm-4 align-left">
                         <br class="hidden-xs hidden-sm"><br class="hidden-xs hidden-sm"><br class="hidden-xs hidden-sm">
@@ -181,13 +185,13 @@
           
           {% if item.leftPosition or item.rightPosition %}
 
-          <li data-marker="{{item.dataMarker}}"><img src="{{slideImgPath}}/{{item.imgPrimary}}" alt="{{item.imgAltText}}"/></li>
+          <li data-marker="{{item.dataMarker}}"><img src="{{item.imgPrimary.url}}" alt="{{item.imgAltText}}"/></li>
 
           {% endif %}
 
           {% if item.centerPosition %}
 
-          <li data-marker="{{item.dataMarker}}" class="active"><img src="{{slideImgPath}}/{{item.imgPrimary}}" alt="{{item.imgAltText}}"/></li>
+          <li data-marker="{{item.dataMarker}}" class="active"><img src="{{item.imgPrimary.url}}" alt="{{item.imgAltText}}"/></li>
 
           {% endif %}
 

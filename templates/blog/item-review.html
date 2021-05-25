@@ -1,6 +1,4 @@
 {% load static %}
-{% static 'assets/img/products' as productsImgPath %}
-{% static 'assets/img/blog' as blogImgPath %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -76,8 +74,13 @@
               </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+              {% if user.is_authenticated %}
+              <li><a href="#account"> <i class="ion-android-person"></i> Hello, {{ user.first_name }} </a></li>
+              <li><a href="/home/logout"> Logout</a></li>
+              {% else %}
               <li><a href="/login"> <i class="ion-android-person"></i> Login </a></li>
               <li><a href="/signup"> Sign Up</a></li>
+              {% endif %}
             </ul>
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
@@ -98,7 +101,7 @@
             <br><br>
           </div>
           <div class="col-sm-6 col-sm-offset-3 align-center">
-            <img src="{{blogImgPath}}/{{reviewBlogItem.thumbImg}}" alt="{{reviewBlogItem.thumbImgAltText}}" class="image" />
+            <img src="{{reviewBlogItem.thumbImg.url}}" alt="{{reviewBlogItem.thumbImgAltText}}" class="image" />
             <h2>Starting at ${{reviewBlogItem.startingPrice}}</h2>
 
             <a href="#first-featurette" class="scroll-to"> <i class="ion-android-arrow-down"></i> <br> Scroll for more </a>
@@ -116,7 +119,7 @@
             </p>
           </div>
           <div class="col-md-5">
-            <img class="featurette-image img-responsive center-block" alt="{{reviewBlogItem.ffImgAltText}}" src="{{blogImgPath}}/{{reviewBlogItem.ffImg}}">
+            <img class="featurette-image img-responsive center-block" alt="{{reviewBlogItem.ffImgAltText}}" src="{{reviewBlogItem.ffImg.url}}">
           </div>
         </div>
 
@@ -134,7 +137,7 @@
             </p>
           </div>
           <div class="col-md-5 col-md-pull-7">
-            <img class="featurette-image img-responsive center-block" alt="{{reviewBlogItem.sfImgAltText}}" src="{{blogImgPath}}/{{reviewBlogItem.sfImg}}">
+            <img class="featurette-image img-responsive center-block" alt="{{reviewBlogItem.sfImgAltText}}" src="{{reviewBlogItem.sfImg.url}}">
           </div>
         </div>
 
@@ -142,17 +145,17 @@
 
         <hr>
 
-        {% if reviewBlogItem.thFlag %}
+        {% if reviewBlogItem.tfFlag %}
 
         <div class="row featurette" id="third-featurette">
           <div class="col-md-7">
             <h2 class="featurette-heading">{{reviewBlogItem.tfTitle1}}<span class="text-muted">{{reviewBlogItem.tfTitle2}}</span></h2>
             <p class="lead">
-              {{ reviewBlogItem.tfDesc | linebreaks }}
+              {{ reviewBlogItem.tfDesc | linebreaksbr }}
             </p>
           </div>
           <div class="col-md-5">
-            <img class="featurette-image img-responsive center-block" alt="{{reviewBlogItem.tfImgAltText}}" src="{{blogImgPath}}/{{reviewBlogItem.tfImg}}">
+            <img class="featurette-image img-responsive center-block" alt="{{reviewBlogItem.tfImgAltText}}" src="{{reviewBlogItem.tfImg.url}}">
           </div>
         </div>
 
@@ -173,35 +176,38 @@
     </div>
     <br><br>
 
-    <div class="products" id="products">
-      <div class="container">
-        <div class="row">
+    <div class="container">
+      <h2>AVAILABLE PRODUCTS</h2>
+      <hr class="offset-md">
 
-          {% for rProduct in rProducts %}
-              <div class="col-sm-6 col-md-3 col-md-offset-3 product">
-                {% if rProduct.isFavorite %}
-                <a href="#favorites" class="favorites" data-favorite="active"><i class="ion-ios-heart-outline"></i></a>
-                {% else %}
-                <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
-                {% endif %}
-                <a href="/catalog/product"><img src="{{productsImgPath}}/{{rProduct.img}}" alt="{{rProduct.imgAltText}}"/></a>
+      <div class="row products">
 
-                <div class="content">
-                  <h1 class="h4">{{rProduct.title}}</h1>
-                  <p class="price">${{rProduct.sale}}</p>
-                  {% if rProduct.isOffer %}
-                  <p class="price through">$249.99</p>
-                  {% endif %}
-                  <label>{{rProduct.label}}</label>
+        {% for rProduct in rProducts %}
 
-                  <a href="catalog/product" class="btn btn-link"> Details</a>
-                  <button class="btn btn-primary btn-rounded btn-sm"> <i class="ion-bag"></i> Add to cart</button>
-                </div>
-              </div>
+        <div class="col-sm-6 col-md-4 product">
+          {% if rProduct.isFavorite %}
+          <a href="#favorites" class="favorites" data-favorite="active"><i class="ion-ios-heart-outline"></i></a>
+          {% else %}
+          <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
+          {% endif %}
 
-          {% endfor %}
-          
+          <a href="./"><img src="{{rProduct.img.url}}" alt="{{rProduct.imgAltText}}"/></a>
+
+          <div class="content">
+            <h1 class="h4">{{rProduct.headline}}</h1>
+            <p class="sale">${{rProduct.sale}}</p>
+            {% if rProduct.isOffer %}
+            <p class="price through">${{rProduct.priceThrough}}</p>
+            {% endif %}
+            <label>{{rProduct.label}}</label>
+
+            <a href="/catalog/product" class="btn btn-link"> Details</a>
+            <button class="btn btn-primary btn-rounded btn-sm"> <i class="ion-bag"></i> Add to cart</button>
+          </div>
         </div>
+
+        {% endfor %}
+
       </div>
     </div>
 

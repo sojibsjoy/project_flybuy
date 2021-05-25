@@ -1,15 +1,25 @@
-from django.shortcuts import render
+from django.contrib import messages
+from django.shortcuts import redirect, render
 from contacts.models import ContactInfo
+from django.contrib.auth.models import auth
 
 
 def login(request):
 
-    contactInfo = ContactInfo()
-    contactInfo.companyName = "FlyBuy, Inc."
-    contactInfo.addressText1 = "1305 Market Street, Suite 800"
-    contactInfo.addressText2 = "San Francisco, CA 94102"
-    contactInfo.phoneNo = " (123) 456-7890"
-    contactInfo.supportMail = "sup@example.com"
-    contactInfo.partnerMail = "col@example.com"
+    contactInfo = ContactInfo.objects.first()
 
     return render(request, 'login/login.html', {'contactInfo': contactInfo})
+
+
+def signin(request):
+    username = request.POST['username']
+    password = request.POST['password']
+
+    user = auth.authenticate(username=username, password=password)
+    if user is not None:
+        auth.login(request, user)
+        return redirect('/home')
+    else:
+        messages.info(request, 'Invalid Credentials')
+        return redirect('/login')
+    return redirect('/login')

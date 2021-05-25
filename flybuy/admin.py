@@ -1,3 +1,4 @@
 from django.contrib import admin
+from flybuy.models import SlideItem
 
-# Register your models here.
+admin.site.register(SlideItem)

@@ -1,3 +1,6 @@
 from django.contrib import admin
+from home.models import NewProducts, Recommendation, NewArticle
 
-# Register your models here.
+admin.site.register(NewProducts)
+admin.site.register(Recommendation)
+admin.site.register(NewArticle)

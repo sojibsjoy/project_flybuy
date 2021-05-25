@@ -1,7 +1,4 @@
 {% load static %}
-{% static 'assets/img/brands' as brandImgPath %}
-{% static 'assets/img/products' as productsImgPath %}
-{% static 'assets/img/product' as productImgPath %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -51,7 +48,7 @@
           <div class="media">
             <div class="media-left">
               <a href="#">
-                <img class="media-object" src="{{productsImgPath}}/{{cartItem.img}}" alt="{{cartItem.imgAltText}}"/>
+                <img class="media-object" src="{{cartItem.img.url}}" alt="{{cartItem.imgAltText}}"/>
               </a>
             </div>
             <div class="media-body">
@@ -137,8 +134,13 @@
               </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+              {% if user.is_authenticated %}
+              <li><a href="#account"> <i class="ion-android-person"></i> Hello, {{ user.first_name }} </a></li>
+              <li><a href="/home/logout"> Logout</a></li>
+              {% else %}
               <li><a href="/login"> <i class="ion-android-person"></i> Login </a></li>
               <li><a href="/signup"> Sign Up</a></li>
+              {% endif %}
             </ul>
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
@@ -161,7 +163,7 @@
                 <div class="item" data-marker="{{previewItem.dataMarker}}">
                   <div class="tiles">
                     <a href="#video" data-gallery="#video" data-source="youtube" data-id="{{previewItem.videoId}}" data-title="{{previewItem.videoTitle}}" data-description="{{previewItem.videoDesc}}">
-                      <img src="{{productImgPath}}/{{previewItem.videoThumbImg}}" alt="{{previewItem.videoThumbImgAltText}}">
+                      <img src="{{previewItem.videoThumbImg.url}}" alt="{{previewItem.videoThumbImgAltText}}">
 
                       <div class="overlay"></div>
                       <div class="content">
@@ -181,13 +183,13 @@
                 {% if previewItem.isActive %}
 
                 <div class="item active" data-marker="{{previewItem.dataMarker}}">
-                  <img src="{{productImgPath}}/{{previewItem.img}}" alt="{{previewItem.imgAltText}}"/>
+                  <img src="{{previewItem.img.url}}" alt="{{previewItem.imgAltText}}"/>
                 </div>
 
                 {% else %}
 
                 <div class="item" data-marker="{{previewItem.dataMarker}}">
-                  <img src="{{productImgPath}}/{{previewItem.img}}" alt="{{previewItem.imgAltText}}"/>
+                  <img src="{{previewItem.img.url}}" alt="{{previewItem.imgAltText}}"/>
                 </div>
 
                 {% endif %}
@@ -205,7 +207,7 @@
                 <!-- for videos -->
                 {% if previewItem.isVideo %}
 
-                <li data-marker="{{previewItem.dataMarker}}"><img src="{{productImgPath}}/{{previewItem.videoThumbImg}}" alt="Background"/></li>
+                <li data-marker="{{previewItem.dataMarker}}"><img src="{{previewItem.videoThumbImg.url}}" alt="Background"/></li>
 
                 {% else %}
 
@@ -213,11 +215,11 @@
 
                 {% if previewItem.isActive %}
 
-                <li data-marker="{{previewItem.dataMarker}}" class="active"><img src="{{productImgPath}}/{{previewItem.img}}" alt="Background"/></li>
+                <li data-marker="{{previewItem.dataMarker}}" class="active"><img src="{{previewItem.img.url}}" alt="Background"/></li>
 
                 {% else %}
 
-                <li data-marker="{{previewItem.dataMarker}}"><img src="{{productImgPath}}/{{previewItem.img}}" alt="Background"/></li>
+                <li data-marker="{{previewItem.dataMarker}}"><img src="{{previewItem.img.url}}" alt="Background"/></li>
 
                 {% endif %}
 
@@ -230,7 +232,7 @@
           </div>
 
           <div class="col-sm-5 col-md-5">
-            <img src="{{brandImgPath}}/{{productDetail.brandLogo}}" alt="{{productDetail.brandLogoAltText}}" class="brand hidden-xs" />
+            <img src="{{productDetail.brandLogo.url}}" alt="{{productDetail.brandLogoAltText}}" class="brand hidden-xs" />
 
             <h1>{{productDetail.title}}</h1>
 
@@ -362,7 +364,7 @@
                 <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
                 {% endif %}
 
-                <a href="/"><img src="{{productsImgPath}}/{{recommend.img}}" alt="{{recommend.imgAltText}}"/></a>
+                <a href="/"><img src="{{recommend.img.url}}" alt="{{recommend.imgAltText}}"/></a>
 
                 <div class="content">
                   <h1 class="h4">{{recommend.headline}}</h1>

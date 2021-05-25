@@ -1,6 +1,4 @@
 {% load static %}
-{% static 'assets/img/gallery/thumb' as galleryThumbImgPath %}
-{% static 'assets/img/gallery' as galleryImgPath %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -66,8 +64,13 @@
               </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+              {% if user.is_authenticated %}
+              <li><a href="#account"> <i class="ion-android-person"></i> Hello, {{ user.first_name }} </a></li>
+              <li><a href="/home/logout"> Logout</a></li>
+              {% else %}
               <li><a href="/login"> <i class="ion-android-person"></i> Login </a></li>
               <li><a href="/signup"> Sign Up</a></li>
+              {% endif %}
             </ul>
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
@@ -82,7 +85,7 @@
           {% if item.isVideo %}
 
           <div class="col-xs-6 col-sm-2">
-            <div class="preview" data-preview="{{galleryThumbImgPath}}/{{item.videoThumb}}" data-gallery="#video" 
+            <div class="preview" data-preview="{{item.videoThumb.url}}" data-gallery="#video" 
                   data-source="vimeo" data-id="{{item.videoId}}" data-title="{{item.videoTitle}}" data-description="{{item.videoDesc}}">
               <div class="overlay"></div>
               <i class="ion-ios-play"></i>
@@ -92,8 +95,8 @@
           {% else %}
 
           <div class="col-xs-6 col-sm-2">
-            <div class="preview" data-preview="{{galleryThumbImgPath}}/{{item.img}}" data-gallery="#photo" 
-                  data-source="{{galleryImgPath}}/{{item.img}}" data-title="{{item.imgTitle}}" data-description="{{item.imgDesc}}">
+            <div class="preview" data-preview="{{item.img.url}}" data-gallery="#photo" 
+                  data-source="{{item.img.url}}" data-title="{{item.imgTitle}}" data-description="{{item.imgDesc}}">
               <div class="overlay"></div>
               <i class="ion-ios-albums-outline"></i>
             </div>

@@ -1,5 +1,4 @@
 {% load static %}
-{% static 'assets/img/products' as productsImgPath %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -50,7 +49,7 @@
           <div class="media">
             <div class="media-left">
               <a href="#">
-                <img class="media-object" src="{{productsImgPath}}/{{cartItem.img}}" alt="{{cartItem.imgAltText}}"/>
+                <img class="media-object" src="{{cartItem.img.url}}" alt="{{cartItem.imgAltText}}"/>
               </a>
             </div>
             <div class="media-body">
@@ -136,8 +135,13 @@
               </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+              {% if user.is_authenticated %}
+              <li><a href="#account"> <i class="ion-android-person"></i> Hello, {{ user.first_name }} </a></li>
+              <li><a href="/home/logout"> Logout</a></li>
+              {% else %}
               <li><a href="/login"> <i class="ion-android-person"></i> Login </a></li>
               <li><a href="/signup"> Sign Up</a></li>
+              {% endif %}
             </ul>
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
@@ -351,7 +355,7 @@
               <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
               {% endif %}
 
-              <a href="/catalog/product"><img src="{{productsImgPath}}/{{productItem.img}}" alt="{{productItem.imgAltText}}"/></a>
+              <a href="/catalog/product"><img src="{{productItem.img.url}}" alt="{{productItem.imgAltText}}"/></a>
 
               <div class="content">
                 <h1 class="h4">{{productItem.title}}</h1>

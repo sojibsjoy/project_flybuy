@@ -1,47 +1,35 @@
 from django.db import models
 
 
-class SlideItem:
-    centerPosition: bool
-    leftPosition: bool
-    rightPosition: bool
-    dataMarker: int
-    title: str
-    subTitle: str
-    imgPrimary: str
-    imgSecondary: str
-    imgAltText: str
+class NewProducts(models.Model):
+    isFavorite = models.BooleanField(default=False)
+    headline = models.CharField(max_length=30)
+    isOffer = models.BooleanField(default=False)
+    sale = models.FloatField()
+    priceThrough = models.FloatField()
+    label = models.CharField(max_length=30)
+    img = models.ImageField(upload_to='productImgs')
+    imgAltText = models.CharField(max_length=30)
 
 
-class NewProducts:
-    isFavorite: bool
-    headline: str
-    isOffer: bool
-    sale: float
-    priceThrough: float
-    label: str
-    img: str
-    imgAltText: str
+class Recommendation(models.Model):
+    isFavorite = models.BooleanField(default=False)
+    headline = models.CharField(max_length=30)
+    isOffer = models.BooleanField(default=False)
+    sale = models.FloatField()
+    priceThrough = models.FloatField()
+    label = models.CharField(max_length=30)
+    img = models.ImageField(upload_to='productImgs')
+    imgAltText = models.CharField(max_length=30)
 
 
-class Recommendation:
-    isFavorite: bool
-    headline: str
-    isOffer: bool
-    sale: float
-    priceThrough: float
-    label: str
-    img: str
-    imgAltText: str
-
-
-class NewArticle:
-    isPhotoArticle: bool
-    isVideoArticle: bool
-    isReviewArticle: bool
-    img: str
-    imgTitle: str
-    imgAltText: str
-    headline: str
-    date: str
-    desc: str
+class NewArticle(models.Model):
+    isPhotoArticle = models.BooleanField(default=False)
+    isVideoArticle = models.BooleanField(default=False)
+    isReviewArticle = models.BooleanField(default=False)
+    img = models.ImageField(upload_to='blogItemPics')
+    imgTitle = models.CharField(max_length=30)
+    imgAltText = models.CharField(max_length=30)
+    headline = models.CharField(max_length=75)
+    date = models.CharField(max_length=30)
+    desc = models.TextField()
